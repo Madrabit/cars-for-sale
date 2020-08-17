@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Купить машину</title>
+</head>
+<body>
+<div class="container pt-3">
+    <div class="row">
+        <div class="card" style="width: 100%">
+            <div class="card-header d-flex justify-content-between">
+                <div>Объявления</div>
+                <div class="ml-auto pr-2" id="userName"></div>
+                <a class="nav-link p-0" href="LogoutServlet">
+                    Выйти
+                </a>
+            </div>
+            <div class="pb-3">
+                <a href="/cars_for_sale/advertisement/edit.html" class="btn btn-info pl-2" role="button">
+                    Добавить объявление
+                </a>
+            </div>
+            <div class="advTable">
+            </div>
+
+        </div>
+    </div>
+</div>
+<template id="template">
+    <div class="card-body d-flex ">
+        <img class="col-2" src="" alt="car_pic">
+        <div class="description col-10 d-flex justify-content-between">
+            <div class="d-flex justify-content-between col-6">
+                <div class="col-12">
+                    <div class="font-weight-bold">
+                        <a href="" class="d-flex car-name">
+                            <div class="brand pr-2">Lada</div>
+                            <div class="model">2107</div>
+                        </a>
+                    </div>
+                    <div class="d-flex justify-content-between ">
+                        <div class="col-8 p-0 pt-1">
+                            <div>
+                                <span class="displacement">1.6 л</span>
+                                л. /
+                                <span class="horsepower">72 л.с.</span>
+                                л.с. /
+                                <span class="fuel">Бензин</span>
+                            </div>
+                            <div class="transmission">Механика</div>
+                        </div>
+                        <div class="col-4">
+                            <div class="body">Седан</div>
+                            <div class="drive">Передний</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="year col-3 font-weight-bold">2007</div>
+            <div class="col-3 font-weight-bold d-flex flex-column justify-content-between">
+                <div class="mileage">202 000 км</div>
+                <div class="price">202 000 руб.</div>
+                <div class="pt-6 status">Статус: Продано</div>
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+
+    /**
+     * Render advertisements.
+     * @param data
+     */
+    let renderAdv = (data) => {
+        document.querySelector('.advTable').innerHTML = "";
+        for (let adv in data) {
+            let table = document.querySelector('.advTable');
+            let newRow = document.createElement('div');
+            newRow.append(template.content.cloneNode(true));
+            newRow.querySelector('.brand').textContent = data[adv].car.brand;
+            newRow.querySelector('.model').textContent = data[adv].car.model;
+            let carName = newRow.querySelector('.car-name');
+            carName.setAttribute("href", "car.html?id=" + data[adv].id);
+            newRow.querySelector('.year').textContent = data[adv].car.year;
+            newRow.querySelector('.displacement').textContent = data[adv].car.engine.displacement;
+            newRow.querySelector('.horsepower').textContent = data[adv].car.engine.horsepower;
+            newRow.querySelector('.fuel').textContent = data[adv].car.engine.fuel;
+            newRow.querySelector('.transmission').textContent = data[adv].car.transmission;
+            newRow.querySelector('.body').textContent = data[adv].car.body;
+            newRow.querySelector('.drive').textContent = data[adv].car.drive;
+            newRow.querySelector('.mileage').textContent = data[adv].car.mileage + ' км.';
+            newRow.querySelector('.price').textContent = data[adv].car.price + ' руб.';
+            newRow.querySelector('.status').textContent = data[adv].status ? 'Продано' : 'Продается';
+            newRow.querySelector('img').setAttribute('src', window.location.pathname + '/download?image=' + data[adv].car.image);
+            table.insertBefore(newRow, table.firstElementChild);
+        }
+
+    }
+
+    let json;
+
+    window.onload = function () {
+        /**
+         * Load User name.
+         */
+        fetch('http://localhost:8081/cars_for_sale/userName',
+            {
+                method: 'GET'
+            }
+        ).then(response => {
+            return response.text();
+        }).then(text => {
+            let userName = document.querySelector('#userName');
+            userName.innerHTML += (text);
+        }).catch(error => console.error(error))
+        /**
+         * Load all advertisements.
+         */
+        fetch('http://localhost:8081/cars_for_sale/showAll',
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json; charset=utf-8'
+                }
+            }
+        ).then(response => response.json())
+            .then(data => {
+                json = data;
+                renderAdv(data);
+            }).catch(error => console.error(error))
+
+    }
+</script>
+</body>
+</html>

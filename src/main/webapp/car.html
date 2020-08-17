@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Купить машину</title>
+</head>
+<body>
+<div class="container pt-3">
+
+</div>
+<template id="template">
+    <div class="row pb-3">
+        <a href="/cars_for_sale" class="btn btn-info pl-2" role="button">
+            Вернуться к списку объявлений
+        </a>
+    </div>
+    <div class="row font-weight-bold">
+        <h2 class="brand">Lada</h2>
+        <h2 class="pl-2 model">Kalina</h2>
+    </div>
+    <div class="car-desc row">
+        <div class="col-3 p-0">
+            <div class="d-flex justify-content-between pb-1">
+                <span>Год выпуска</span>
+                <span class="year">2011</span>
+            </div>
+            <div class="d-flex justify-content-between pb-1">
+                <span>Пробег</span>
+                <span class="mileage">21 500 км</span>
+            </div>
+            <div class="d-flex justify-content-between pb-1">
+                <span>Кузов</span>
+                <span class="body">Хэтчбек</span>
+            </div>
+            <div class="d-flex justify-content-between pb-1">
+                <span>Коробка</span>
+                <span class="transmission">Механическая</span>
+            </div>
+            <div class="d-flex justify-content-between pb-1">
+                <span>Привод</span>
+                <span class="drive">Передний</span>
+            </div>
+            <div class="">
+                <div>Двигатель</div>
+                <div class="horsepower">1.6 л / 84 л.с.</div>
+            </div>
+            <div class="form-check pt-5">
+                <input class="form-check-input" type="checkbox" name="status" id="status" value="">
+                <label class="form-check-label" for="status">
+                    Продано
+                </label>
+            </div>
+        </div>
+        <div class="pl-5">
+            <img width="500" src="" alt="большая картинка авто">
+        </div>
+    </div>
+</template>
+<script>
+    let json;
+    let userId;
+
+    /**
+     * Render car from template.
+     * @param data
+     */
+    let renderAdv = (data) => {
+        let table = document.querySelector('.container');
+        let newRow = document.createElement('div');
+        newRow.append(template.content.cloneNode(true));
+        newRow.querySelector('.brand').textContent = data.car.brand;
+        newRow.querySelector('.model').textContent = data.car.model;
+        newRow.querySelector('.year').textContent = data.car.year;
+        newRow.querySelector('.horsepower').textContent = data.car.engine.displacement + ' л. / '
+            + data.car.engine.horsepower + ' л.с. / '
+            + data.car.engine.fuel;
+        newRow.querySelector('.transmission').textContent = data.car.transmission;
+        newRow.querySelector('.body').textContent = data.car.body;
+        newRow.querySelector('.drive').textContent = data.car.drive;
+        newRow.querySelector('.mileage').textContent = data.car.mileage;
+        newRow.querySelector('#status').checked = data.status;
+        if (json['user'].id != userId) {
+            newRow.querySelector('#status').hidden = true;
+        }
+        newRow.querySelector('img').setAttribute('src', window.location.pathname.slice(0, 15) + '/download?image=' + data.car.image);
+        table.insertBefore(newRow, table.firstElementChild);
+        checkbox = document.querySelector('#status')
+        checkbox.addEventListener('change', (event) => {
+                event.preventDefault();
+                fetch('http://localhost:8081/cars_for_sale/carDesc?ID=' + paramId + "&completed=" + checkbox.checked,
+                    {
+                        method: 'GET'
+                    }
+                ).then(response => {
+                    console.log(response.text)
+                })
+                    .catch(error => console.error(error))
+            }
+        )
+    }
+    const currentLocation = new URLSearchParams(window.location.search);
+    let paramId;
+    let checkbox;
+    window.onload = function () {
+        /**
+         * Load session user Id.
+         */
+        fetch('http://localhost:8081/cars_for_sale/userId',
+            {
+                method: 'GET'
+            }
+        ).then(response => {
+            return response.text();
+        }).then(text => {
+            userId = text;
+        }).catch(error => console.error(error))
+
+        paramId = currentLocation.get('id');
+        /**
+         * Load car description.
+         */
+        fetch('http://localhost:8081/cars_for_sale/carDesc',
+            {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                body: JSON.stringify({id: paramId})
+            }
+        ).then(response => response.json())
+            .then(data => {
+                json = data;
+                renderAdv(data);
+            }).catch(error => console.error(error))
+
+    }
+</script>
+</body>
+</html>

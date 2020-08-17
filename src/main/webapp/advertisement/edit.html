@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="../style.css"/>
+    <title>Новое объявление</title>
+</head>
+<body>
+<div class="container pt-3">
+    <div class="row w-75  mx-auto">
+        <div class="card" style="width: 100%">
+            <div class="card-header">
+                Добавить новое объявление
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="d-flex justify-content-between">
+                        <div>
+
+                            <div class="form-group has-error">
+                                <label for="brand">Марка:</label>
+                                <input type="text" class="form-control" id="brand" name="brand" value="">
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <select name="transmission" id="transmission" size="1">
+                                        <option value="">Коробка</option>
+                                        <option value="">Автоматическая</option>
+                                        <option value="">Механическая</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <select name="body" id="body" size="1">
+                                        <option value="">Кузов</option>
+                                        <option value="">Седан</option>
+                                        <option value="">Хэтчбек</option>
+                                        <option value="">Универсал</option>
+                                        <option value="">Внедорожник</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="year">Год выпуска:</label>
+                                <input type="text" class="form-control" name="year" id="year"
+                                       value="">
+                                <div class="valid-inform  hidden" id="yearInvalid">Поле заполнено неверно</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group ">
+                                <label for="model">Модель:</label>
+                                <input type="text" class="form-control" name="model" id="model"
+                                       value="">
+                                <div class="valid-inform  hidden" id="modelInvalid">Поле заполнено неверно</div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <select name="fuel" id="fuel" size="1">
+                                        <option value="">Двигатель</option>
+                                        <option value="">Бензин</option>
+                                        <option value="">Дизель</option>
+                                        <option value="">Гибрид</option>
+                                        <option value="">Электро</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <select name="drive" id="drive" size="1">
+                                        <option value="">Привод</option>
+                                        <option value="">Передний</option>
+                                        <option value="">Задний</option>
+                                        <option value="">Полный</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="mileage">Пробег:</label>
+                                <input type="text" class="form-control" name="mileage" id="mileage"
+                                       value="">
+                                <div class="valid-inform  hidden" id="mileageInvalid">Поле заполнено неверно</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="form-group ">
+                                <label for="horsepower">Мощность, л.с.:</label>
+                                <input type="text" class="form-control" name="horsepower" id="horsepower"
+                                       value="">
+                                <div class="valid-inform  hidden" id="horsepowerInvalid">Поле заполнено неверно</div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="displacement">Объем, л.:</label>
+                                <input type="text" class="form-control" name="displacement" id="displacement"
+                                       value="">
+                                <div class="valid-inform  hidden" id="displacementInvalid">Поле заполнено неверно</div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="price">Стоимость:</label>
+                                <input type="text" class="form-control" name="price" id="price"
+                                       value="">
+                                <div class="valid-inform  hidden" id="priceInvalid">Поле заполнено неверно</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="checkbox mb-3">
+                        <input type="file" id="uploader" name="image">
+                        <img width="200" src="" alt="">
+                    </div>
+                    <div class="valid-inform  hidden" id="formInvalid">Форма заполнена неверно</div>
+                    <button type="submit" class="btn btn-primary">Разместить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    /**
+     * Live loading image.
+     */
+    let loadFile = function (event) {
+        let output = document.querySelector('img');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function () {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+    };
+
+
+    let uploader = document.querySelector('#uploader');
+    uploader.addEventListener('change', e => {
+        loadFile(e);
+    })
+
+    /**
+     * Form validation.
+     * @param event Submit event.
+     */
+    let validate = (event) => {
+        document.querySelectorAll('.valid-inform').forEach(el => el.classList.add('hidden'));
+        let brand = document.querySelector('#brand').value;
+        let model = document.querySelector('#model').value;
+        let year = document.querySelector('#year').value;
+        let displacement = document.querySelector('#displacement').value;
+        let price = document.querySelector('#price').value;
+        let mileage = document.querySelector('#mileage').value;
+        let horsepower = document.querySelector('#horsepower').value;
+        let body = document.querySelector('#body');
+        let drive = document.querySelector('#drive');
+        let transmission = document.querySelector('#transmission');
+        let fuel = document.querySelector('#fuel');
+
+        let isValid = true;
+        if (
+            brand.trim() === ''
+            || model.trim() === ''
+            || year.trim() === ''
+            || price.trim() === ''
+            || mileage.trim() === ''
+            || horsepower.trim() === ''
+            || displacement.trim() === ''
+            || transmission.selectedIndex === 0
+            || body.selectedIndex === 0
+            || drive.selectedIndex === 0
+            || fuel.selectedIndex === 0
+        ) {
+            isValid = false;
+            let error = document.querySelector('#formInvalid');
+            error.classList.remove('hidden');
+        }
+        return isValid;
+    }
+
+    /**
+     * Create new Advertisement.
+     * @type {HTMLFormElement}
+     */
+    let form = document.querySelector('form');
+    form.addEventListener('submit', function (e) {
+        e.preventDefault()
+        let brand = document.querySelector('#brand').value;
+        let model = document.querySelector('#model').value;
+        let year = document.querySelector('#year').value;
+        let displacement = document.querySelector('#displacement').value;
+        let price = document.querySelector('#price').value;
+        let mileage = document.querySelector('#mileage').value;
+        let horsepower = document.querySelector('#horsepower').value;
+        let body = document.querySelector('#body');
+        let drive = document.querySelector('#drive');
+        let transmission = document.querySelector('#transmission');
+        let fuel = document.querySelector('#fuel');
+        const formData = new FormData();
+        const fileField = document.querySelector('input[type="file"]');
+        formData.append('brand', brand);
+        formData.append('model', model);
+        formData.append('year', year);
+        formData.append('displacement', displacement);
+        formData.append('price', price);
+        formData.append('mileage', mileage);
+        formData.append('horsepower', horsepower);
+        formData.append('body', body.options[body.selectedIndex].text);
+        formData.append('drive', drive.options[drive.selectedIndex].text);
+        formData.append('transmission', transmission.options[transmission.selectedIndex].text);
+        formData.append('fuel', fuel.options[fuel.selectedIndex].text);
+        formData.append('image', fileField.files[0]);
+        if (validate()) {
+            fetch('http://localhost:8081/cars_for_sale/addCar',
+                {
+                    method: 'POST',
+                    body: formData
+                }
+            ).then(value => window.location.href = location.pathname.substring(0, window.location.pathname.indexOf("/", 1)))
+                .catch(error => console.error(error))
+
+        }
+    });
+</script>
+</body>
+</html>
