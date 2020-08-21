@@ -53,14 +53,14 @@ public class CarDescriptionServlet extends HttpServlet {
         response.setContentType("application/json");
         JsonNode node = objectMapper.readTree(request.getReader());
         Advertisement advertisement = null;
-        if (node != null) {
+        if (node != null ) {
             int id = node.get("id").asInt();
             if (id != 0) {
                advertisement = AdvertisementDaoHiber.instOf().findById(id);
             }
         }
         StringWriter writer = new StringWriter();
-        objectMapper.writeValue(writer, advertisement);
+        objectMapper.writeValue(writer, advertisement == null ? "" : advertisement);
         String advAsString = writer.toString();
         PrintWriter out = response.getWriter();
         response.setContentType("application/json");
