@@ -18,6 +18,18 @@
     <servlet-class>ru.job4j.cars.controllers.ShowAllAdvServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>ShowWithPictureAdvServlet</servlet-name>
+    <servlet-class>ru.job4j.cars.controllers.ShowWithPictureAdvServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ShowNewAdvServlet</servlet-name>
+    <servlet-class>ru.job4j.cars.controllers.ShowNewAdvServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>CarFilterServlet</servlet-name>
+    <servlet-class>ru.job4j.cars.controllers.CarFilterServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>CarDescriptionServlet</servlet-name>
     <servlet-class>ru.job4j.cars.controllers.CarDescriptionServlet</servlet-class>
   </servlet>
@@ -56,6 +68,18 @@
   <servlet-mapping>
     <servlet-name>ShowAllAdvServlet</servlet-name>
     <url-pattern>/showAll</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ShowWithPictureAdvServlet</servlet-name>
+    <url-pattern>/showWithPic</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ShowNewAdvServlet</servlet-name>
+    <url-pattern>/showNew</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CarFilterServlet</servlet-name>
+    <url-pattern>/carFilter</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>CarDescriptionServlet</servlet-name>

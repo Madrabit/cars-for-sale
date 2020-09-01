@@ -17,7 +17,7 @@ public interface CommonDao<T> {
 
 
     /**
-     * Update advertisment status. Car sold or not.
+     * Update advertisement status. Car sold or not.
      * @param id
      * @param completed
      */
@@ -45,4 +45,26 @@ public interface CommonDao<T> {
      * @param user
      */
     void addUser(User user);
+
+    /**
+     * Filter Advertisement which have pictures.
+     * @param advertisementClass
+     * @return
+     */
+    List<Advertisement> findWithPicture(Class<Advertisement> advertisementClass);
+
+    /**
+     * Filter Advertisement by today Date.
+     * @param advertisementClass
+     * @return
+     */
+    List<Advertisement> findNew(Class<Advertisement> advertisementClass);
+
+
+    /**
+     * Filter Car by brand.
+     * @param name
+     * @return
+     */
+    List<Advertisement> findCarByBrand(String name);
 }

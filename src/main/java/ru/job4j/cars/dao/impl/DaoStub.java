@@ -56,4 +56,19 @@ public class DaoStub implements CommonDao<Advertisement> {
     public void updateStatus(int id, boolean completed) {
 
     }
+
+    @Override
+    public List<Advertisement> findWithPicture(Class<Advertisement> advertisementClass) {
+        return null;
+    }
+
+    @Override
+    public List<Advertisement> findNew(Class<Advertisement> advertisementClass) {
+        return null;
+    }
+
+    @Override
+    public List<Advertisement> findCarByBrand(String name) {
+        return null;
+    }
 }

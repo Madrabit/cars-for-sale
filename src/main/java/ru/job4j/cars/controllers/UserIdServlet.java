@@ -3,7 +3,6 @@ package ru.job4j.cars.controllers;
 import ru.job4j.cars.dao.impl.CommonDaoHiber;
 import ru.job4j.cars.model.User;
 
-import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,7 @@ import java.io.IOException;
  * @author madrabit on 14.08.2020
  * @version ${Id}$
  * @since 0.1
- * Get user Id to compare with session user. And show or hidde status button.
+ * Get user Id to compare with session user. And show or hide status button.
  */
 public class UserIdServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

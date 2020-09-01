@@ -14,25 +14,18 @@ import java.io.StringWriter;
 import java.util.List;
 
 /**
- * @author madrabit on 07.08.2020
- * @version 1$
+ * @author madrabit on 28.08.2020
+ * @version ${Id}$
  * @since 0.1
- * Load all Advertisement to main page.
  */
-public class ShowAllAdvServlet extends HttpServlet {
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doGet(req, resp);
-    }
-
-    @Override
+public class ShowWithPictureAdvServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         ObjectMapper objectMapper = new ObjectMapper();
-        List<Advertisement> advertisementList = AdvertisementDaoHiber.instOf().findAll(Advertisement.class);
+        List<Advertisement> advertisementList = AdvertisementDaoHiber.instOf().findWithPicture(Advertisement.class);
         StringWriter writer = new StringWriter();
-        objectMapper.writeValue(writer, advertisementList);
+        objectMapper.writeValue(writer, advertisementList == null ? "" : advertisementList);
         String advAsString = writer.toString();
         PrintWriter out = resp.getWriter();
         resp.setContentType("application/json");

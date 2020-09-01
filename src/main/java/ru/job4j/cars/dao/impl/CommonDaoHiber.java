@@ -11,6 +11,7 @@ import ru.job4j.cars.model.Advertisement;
 import ru.job4j.cars.model.User;
 import ru.job4j.cars.util.HibernateUtil;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.function.Function;
 
@@ -94,8 +95,15 @@ public class CommonDaoHiber<T> implements CommonDao<T> {
         );
     }
 
+    @Override
+    public List<Advertisement> findWithPicture(Class<Advertisement> advertisementClass) {
+        return this.tx(session -> session.createQuery("select adv from Advertisement adv "
+                + "join fetch adv.car с where с.image <> '' "
+                , Advertisement.class
+        ).getResultList());
+    }
 
-//    @Override
+    //    @Override
 //    public List<Advertisement> findAll(String email) {
 //        return this.tx(
 //                session -> {
@@ -126,5 +134,22 @@ public class CommonDaoHiber<T> implements CommonDao<T> {
         this.tx(
                 session -> session.save(user)
         );
+    }
+
+    @Override
+    public List<Advertisement> findNew(Class<Advertisement> advertisementClass) {
+        LocalDate currentDate = LocalDate.now();
+        return this.tx(session -> session.createQuery("select adv from Advertisement adv "
+                        + "where adv.date=:currentDate "
+                , Advertisement.class
+        ).setParameter("currentDate", currentDate).getResultList());
+    }
+
+    @Override
+    public List<Advertisement> findCarByBrand(String name) {
+        return this.tx(session -> session.createQuery("select adv from Advertisement adv "
+                        + "join fetch adv.car с where с.brand=:name "
+                , Advertisement.class
+        ).setParameter("name", name).getResultList());
     }
 }

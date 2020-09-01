@@ -1,6 +1,7 @@
 package ru.job4j.cars.model;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
@@ -26,10 +27,13 @@ public class Advertisement {
 
     private boolean status;
 
+    private LocalDate date;
+
     public static Advertisement of (Car car, User user) {
         Advertisement advertisement = new Advertisement();
         advertisement.car = car;
         advertisement.user = user;
+        advertisement.date = LocalDate.now();
         return advertisement;
     }
 
@@ -65,6 +69,14 @@ public class Advertisement {
         this.status = status;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -73,12 +85,13 @@ public class Advertisement {
         return id == that.id &&
                 status == that.status &&
                 Objects.equals(car, that.car) &&
-                Objects.equals(user, that.user);
+                Objects.equals(user, that.user) &&
+                Objects.equals(date, that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, car, user, status);
+        return Objects.hash(id, car, user, status, date);
     }
 
     @Override
@@ -88,6 +101,7 @@ public class Advertisement {
                 ", car=" + car +
                 ", user=" + user +
                 ", status=" + status +
+                ", date=" + date +
                 '}';
     }
 }
