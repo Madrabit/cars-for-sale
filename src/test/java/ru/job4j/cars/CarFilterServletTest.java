@@ -18,7 +18,7 @@ import static org.junit.Assert.assertEquals;
  * @version 1$
  * @since 0.1
  */
-public class IntegrationTest {
+public class CarFilterServletTest {
 
     CommonDao dao;
     Car car;
