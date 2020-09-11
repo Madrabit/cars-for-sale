@@ -61,7 +61,7 @@ public class Advertisement {
         this.user = user;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
